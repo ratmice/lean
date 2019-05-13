@@ -1,20 +1,16 @@
 @[vm_override]
 meta def hello : name :=
-id_rhs name (name.mk_string "name" (name.mk_string "hello" name.anonymous))
-hello_override.name
-hello.name
-hello_override.name
-vm_override.lean:22:0: error: unknown declaration 'native.float.mk'
-vm_override.lean:27:5: warning: declaration 'native.float₁.mk' uses sorry
-vm_override.lean:34:0: error: type mismatch with override:
-
-float₁.rec : Π {C : native.float → Sort l}, (Π (a : ℕ), C (native.float₁.mk a)) → Π (n : native.float), C n
-native.float₁.rec : ℕ
-vm_override.lean:39:5: warning: declaration 'native.float.mk' uses sorry
-vm_override.lean:41:5: warning: declaration 'native.float.rec' uses sorry
-vm_override.lean:50:0: warning: declaration 'add' uses sorry
-vm_override.lean:55:0: warning: declaration 'div' uses sorry
-vm_override.lean:60:0: warning: declaration 'float.pow' uses sorry
-vm_override.lean:65:0: warning: declaration 'zero' uses sorry
-vm_override.lean:68:0: warning: declaration 'one' uses sorry
+id_rhs name (name.mk_string "hello" name.anonymous)
+hello_override
+hello_override
+hello
+hello
+vm_override.lean:25:5: warning: declaration 'native.float₁.mk' uses sorry
+vm_override.lean:37:5: warning: declaration 'native.float.mk' uses sorry
+vm_override.lean:39:5: warning: declaration 'native.float.rec' uses sorry
+vm_override.lean:48:0: warning: declaration 'add' uses sorry
+vm_override.lean:53:0: warning: declaration 'div' uses sorry
+vm_override.lean:58:0: warning: declaration 'float.pow' uses sorry
+vm_override.lean:64:0: warning: declaration 'zero' uses sorry
+vm_override.lean:67:0: warning: declaration 'one' uses sorry
 1.47059e+06
