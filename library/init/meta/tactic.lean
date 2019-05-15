@@ -8,6 +8,7 @@ import init.function init.data.option.basic init.util
 import init.category.combinators init.category.monad init.category.alternative init.category.monad_fail
 import init.data.nat.div init.meta.exceptional init.meta.format init.meta.environment
 import init.meta.pexpr init.data.repr init.data.string.basic init.meta.interaction_monad
+import init.meta.local_context
 
 meta constant tactic_state : Type
 
@@ -480,13 +481,21 @@ structure apply_cfg :=
     The fields `cfg.auto_param` and `cfg.opt_param` are ignored by this tactic (See `tactic.apply`).
     It returns a list of all introduced meta variables and the parameter name associated with them, even the assigned ones. -/
 meta constant apply_core (e : expr) (cfg : apply_cfg := {}) : tactic (list (name × expr))
-/- Create a fresh meta universe variable. -/
+/-- Create a fresh meta universe variable. -/
 meta constant mk_meta_univ  : tactic level
-/- Create a fresh meta-variable with the given type.
-   The scope of the new meta-variable is the local context of the main goal. -/
-meta constant mk_meta_var   : expr → tactic expr
+/-- Create a fresh meta-variable with the given type.
+    The scope of the new meta-variable is the local context of the main goal. -/
+meta constant mk_meta_var (type : expr) : tactic expr
+/-- Make a new metavariable with the given context. -/
+meta constant mk_meta_var_in (type : expr) (context : lctxt) : tactic expr
+/-- Add an existing mvar to the current metavariable context. This can be used to add metavariables that were created in a different tactic state to this one. -/
+meta constant declare_meta_var (unique : name) (type : expr) (context : lctxt) : tactic unit
+/-- `assign_meta_var m a` tries to assign `a` to the metavar `m`. -/
+meta constant assign_meta_var (mvar : expr) (assignment : expr) :  tactic unit
+/-- Return the local context for the given metavariable. Fail if the argument is not a metavariable.-/
+meta constant get_meta_var_context : expr → tactic lctxt
 /-- Return the value assigned to the given universe meta-variable.
-   Fail if argument is not an universe meta-variable or if it is not assigned. -/
+    Fail if argument is not an universe meta-variable or if it is not assigned. -/
 meta constant get_univ_assignment : level → tactic level
 /-- Return the value assigned to the given meta-variable.
    Fail if argument is not a meta-variable or if it is not assigned. -/
